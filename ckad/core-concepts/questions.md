@@ -22,7 +22,7 @@
 
 12. Create the pod that was just described using YAML
 
-13. Create a busybox pod (using kubectl ocmmand) that runs the command `env`. Run it and see the output.
+13. Create a busybox pod (using kubectl cimmand) that runs the command `env`. Run it and see the output.
 
 14. Create a busybox pod (using YAML) that runs the command `env`. Run it and see the output.
 

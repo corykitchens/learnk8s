@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loop
+  namespace: ckad
+  labels:
+    name: loop
+spec:
+  containers:
+    - name: loop
+      image: busybox:latest 
+      args:
+        - /bin/sh
+        - -c
+        - while true; do echo "Hello"; done
+  restartPolicy: Never   

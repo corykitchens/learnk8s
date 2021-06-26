@@ -61,3 +61,146 @@ status: {}
 kubectl exec -it nginx -n=ckad -- /bin/bash
 root@nginx:/# ls -l
 ```
+
+7.  Status is `Completed`
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loop
+  namespace: ckad
+  labels:
+    name: loop
+spec:
+  containers:
+    - name: loop
+      image: busybox:latest
+      args:
+        - /bin/sh
+        - -c
+        - for i in {1..10}; do echo "Welcome $i times"; done
+  restartPolicy: Never
+```
+
+8.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loop
+  namespace: ckad
+  labels:
+    name: loop
+spec:
+  containers:
+    - name: loop
+      image: busybox:latest
+      args:
+        - /bin/sh
+        - -c
+        - while true; do echo "Hello"; done
+  restartPolicy: Never
+```
+
+9. Status is `Running`
+
+10.
+
+```sh
+kubectl delete ns ckad
+```
+
+11.
+
+```sh
+$ kubectl create ns mynamespace
+$ kubectl run nginx --image=nginx -n=mynamespace
+```
+
+12.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: mynamespace
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+  restartPolicy: Never
+```
+
+13.
+
+```sh
+kubectl run busybox --image=busybox --command env
+
+```
+
+14.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  labels:
+    app: busybox
+spec:
+  containers:
+    - name: busybox
+      image: busybox:latest
+      args:
+        - /bin/sh
+        - -c
+        - env
+  restartPolicy: Never
+```
+
+15.
+
+```sh
+kubectl create ns myns --dry-run=client -o=yaml > myns.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: myns
+spec: {}
+status: {}
+```
+
+16.
+
+```sh
+$ k create resourcequota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o=yaml
+```
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  creationTimestamp: null
+  name: myrq
+spec:
+  hard:
+    cpu: "1"
+    memory: 1G
+    pods: "2"
+status: {}
+```
+
+17.
+
+```sh
+$ k get pods --all-namespaces
+```
